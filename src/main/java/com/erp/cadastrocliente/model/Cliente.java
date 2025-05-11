@@ -1,5 +1,7 @@
 package com.erp.cadastrocliente.model;
 
+import com.erp.cadastrocliente.util.AppUtil;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
@@ -15,12 +17,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.proxy.HibernateProxy;
+import org.springframework.web.multipart.MultipartFile;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @Entity
 public class Cliente {
 
@@ -36,9 +38,11 @@ public class Cliente {
 
   @OneToMany(
     cascade = CascadeType.ALL,
-    fetch = FetchType.EAGER,
+    fetch = FetchType.LAZY,
     mappedBy = "cliente"
   )
+  @JsonIgnoreProperties(value = "cliente")
+  @ToString.Exclude
   private List<Endereco> enderecos;
 
   public void setEnderecos(List<Endereco> enderecos) {
@@ -46,6 +50,10 @@ public class Cliente {
     this.enderecos = enderecos;
     this.enderecos.forEach(endereco -> endereco.setCliente(this));
 
+  }
+
+  public void setLogotipo(MultipartFile logotipo) {
+    this.logotipo = AppUtil.multipartFileToBinary(logotipo);
   }
 
   @Override

@@ -6,8 +6,8 @@ import com.erp.cadastrocliente.exceptions.enums.TipoExcecao;
 import java.util.Arrays;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -22,9 +22,9 @@ public class CustomizeExceptionHandler {
     log.error(this.causedIn(ex));
     return new ResponseEntity<>(new ExcecaoResponse(ex), ex.getStatus());
   }
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  protected ResponseEntity<ExcecaoResponse> handleMethodArgumentNotValid(
-    MethodArgumentNotValidException ex) {
+
+  @ExceptionHandler(BindException.class)
+  protected ResponseEntity<ExcecaoResponse> handleBindException(BindException ex) {
     String[] errors = ex.getBindingResult().getAllErrors().stream()
       .map(e -> ((FieldError) e).getField() + " -> " + e.getDefaultMessage())
       .toArray(String[]::new);
@@ -39,6 +39,7 @@ public class CustomizeExceptionHandler {
     return new ResponseEntity<>(excecaoResponse, requisicaoInvalida.getStatus());
 
   }
+
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ExcecaoResponse> handleAllException(
     Exception ex

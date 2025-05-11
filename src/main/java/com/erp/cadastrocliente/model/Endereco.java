@@ -28,6 +28,7 @@ public class Endereco {
   private String logradouro;
 
   @ManyToOne
+  @ToString.Exclude
   private Cliente cliente;
 
   @Override

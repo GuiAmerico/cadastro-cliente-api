@@ -12,7 +12,7 @@ public enum TipoExcecao {
   CLIENTE_NAO_ENCONTRADO("002", "Cliente não encontrado", HttpStatus.NOT_FOUND),
   REQUISICAO_INVALIDA("003", "Requisição inválida", HttpStatus.BAD_REQUEST),
   ERRO_INTERNO("004", "Erro interno", HttpStatus.INTERNAL_SERVER_ERROR),
-  ;
+  ENDERECO_NAO_ENCONTRADO("005", "Endereco não encontrado", HttpStatus.NOT_FOUND);
 
   private final String codigo;
   private final String descricao;
