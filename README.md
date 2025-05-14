@@ -32,7 +32,7 @@ Este projeto é uma aplicação de cadastro de clientes desenvolvida em **Java**
 
 ## Endpoints
 
-### Base URL: `/publico/v1/autenticacao`
+### Base URL: `/api/v1/clientes`
 
 - **POST** `/`  
   Cria um novo cliente.  
@@ -56,7 +56,7 @@ Este projeto é uma aplicação de cadastro de clientes desenvolvida em **Java**
   Realiza o login do usuário e retorna um token JWT.
 
 ### Rotas Públicas e Privadas:
-- Qual rota mapeada será requerido autenticação, a menos que, 
+- Qualquer rota mapeada será requerido autenticação, a menos que, 
   explicitamente definido como público utilizando o prefixo `/publico`.
 
 ## Exceções Personalizadas
@@ -78,7 +78,7 @@ Este projeto é uma aplicação de cadastro de clientes desenvolvida em **Java**
    - 4.1. Altere a URL de conexão do banco de dados para o seu ambiente local.
    - 4.2. Certifique-se de criar o banco `cadastro_cliente` ou altere para algum já existente
    - 4.3. Configure as credenciais do banco de dados.
-   - 4.4. Adicione sua secret do JWT, caso não pode criar utilizando esse [site](https://www.rapidtables.com/convert/number/ascii-to-hex.html) **(Certifique-se de utlizar `UTF-16` para encoding e `None` para o delimiter)**
+   - 4.4. Adicione sua secret do JWT, caso não tenha pode criar utilizando esse [site](https://www.rapidtables.com/convert/number/ascii-to-hex.html) **(Certifique-se de utilizar `UTF-16` para encoding e `None` para o delimiter)**
    - <img src="https://cdn.discordapp.com/attachments/1028712344110514176/1372153262542684180/image.png?ex=6825bccf&is=68246b4f&hm=2fb396f7d7c456f1e9b98e7915c824497b8c854d6f002a78c5e630850efa218d&" alt="Imagem com problema"/>
 5. Execute o projeto:
    ```bash
@@ -89,10 +89,13 @@ Este projeto é uma aplicação de cadastro de clientes desenvolvida em **Java**
 7. Caso queria utilizar docker para rodar a aplicação
 - 7.1: Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 <br>
-`MSSQL_SA_PASSWORD=SuaSenhaForteAqui!`
-<br>
-`JWT_SECRET=<SuaSecretAqui>!` *gerar no passo 4.3*
+```
+DB_PASSWORD=YourStrong!Passw0rd
+JWT_SECRET=63006100640061007300740072006F002D0063006C00690065006E0074006500
+```
+*gerar no passo 4.3*
 - 7.2: Execute o docker com o seguinte comando:
+
 ```bash
    docker compose up
 ```
