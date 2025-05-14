@@ -93,6 +93,7 @@ Este projeto é uma aplicação de cadastro de clientes desenvolvida em **Java**
 <br>
 `JWT_SECRET=<SuaSecretAqui>!` *gerar no passo 4.3*
 - 7.2: Execute o docker com o seguinte comando:
+
 ```bash
    docker compose up
 ```
