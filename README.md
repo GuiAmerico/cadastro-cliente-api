@@ -89,9 +89,11 @@ Este projeto é uma aplicação de cadastro de clientes desenvolvida em **Java**
 7. Caso queria utilizar docker para rodar a aplicação
 - 7.1: Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 <br>
-`MSSQL_SA_PASSWORD=SuaSenhaForteAqui!`
-<br>
-`JWT_SECRET=<SuaSecretAqui>!` *gerar no passo 4.3*
+```
+DB_PASSWORD=YourStrong!Passw0rd
+JWT_SECRET=63006100640061007300740072006F002D0063006C00690065006E0074006500
+```
+*gerar no passo 4.3*
 - 7.2: Execute o docker com o seguinte comando:
 
 ```bash
