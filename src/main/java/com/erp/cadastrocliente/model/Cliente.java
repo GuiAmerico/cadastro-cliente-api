@@ -2,6 +2,7 @@ package com.erp.cadastrocliente.model;
 
 import com.erp.cadastrocliente.util.AppUtil;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
@@ -38,16 +39,17 @@ public class Cliente {
 
   @OneToMany(
     cascade = CascadeType.ALL,
-    fetch = FetchType.LAZY,
-    mappedBy = "cliente"
+    fetch = FetchType.EAGER,
+    mappedBy = "cliente",
+    orphanRemoval = true
   )
   @JsonIgnoreProperties(value = "cliente")
   @ToString.Exclude
-  private List<Endereco> enderecos;
+  private List<Endereco> enderecos = new ArrayList<>();
 
   public void setEnderecos(List<Endereco> enderecos) {
-//    this.enderecos.clear();
-    this.enderecos = enderecos;
+    this.enderecos.clear();
+    this.enderecos.addAll(enderecos);
     this.enderecos.forEach(endereco -> endereco.setCliente(this));
 
   }

@@ -1,6 +1,5 @@
 package com.erp.cadastrocliente.controller.request;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -26,5 +25,5 @@ public class ClienteRequest {
   @NotNull(message = "Logotipo não pode ser vazio")
   private MultipartFile logotipo;
   @NotEmpty(message = "Endereço não pode ser vazio")
-  private List<EnderecoRequest> enderecos = new ArrayList<>();
+  private List<EnderecoRequest> enderecos;
 }

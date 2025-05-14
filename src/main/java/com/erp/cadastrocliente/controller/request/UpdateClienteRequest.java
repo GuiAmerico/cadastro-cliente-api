@@ -1,8 +1,7 @@
 package com.erp.cadastrocliente.controller.request;
 
+import java.util.List;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,12 +14,10 @@ import org.springframework.web.multipart.MultipartFile;
 @Setter
 public class UpdateClienteRequest {
 
-  @NotBlank(message = "Nome não pode ser vazio")
   private String nome;
   @Email(message = "Email inválido")
-  @NotBlank(message = "Email não pode ser vazio")
   private String email;
-  @NotNull(message = "Logotipo não pode ser vazio")
   private MultipartFile logotipo;
+  private List<EnderecoRequest> enderecos;
 
 }

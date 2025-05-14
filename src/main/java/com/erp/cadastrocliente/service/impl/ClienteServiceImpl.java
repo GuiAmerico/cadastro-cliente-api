@@ -4,6 +4,7 @@ import com.erp.cadastrocliente.controller.request.ClienteRequest;
 import com.erp.cadastrocliente.controller.request.UpdateClienteRequest;
 import com.erp.cadastrocliente.controller.response.ClienteResponse;
 import com.erp.cadastrocliente.exceptions.RecursoJaExisteException;
+import com.erp.cadastrocliente.exceptions.RecursoNaoEncontradoException;
 import com.erp.cadastrocliente.exceptions.enums.TipoExcecao;
 import com.erp.cadastrocliente.model.Cliente;
 import com.erp.cadastrocliente.repository.ClienteRepository;
@@ -33,7 +34,7 @@ public class ClienteServiceImpl implements ClienteService {
   public void updateCliente(Long id, UpdateClienteRequest request) {
     Cliente cliente = clienteRepository
       .findById(id)
-      .orElseThrow(() -> new RecursoJaExisteException(TipoExcecao.CLIENTE_NAO_ENCONTRADO));
+      .orElseThrow(() -> new RecursoNaoEncontradoException(TipoExcecao.CLIENTE_NAO_ENCONTRADO));
 
     boolean atualizouEmail = !cliente.getEmail().equals(request.getEmail());
     if (atualizouEmail) {
@@ -41,6 +42,7 @@ public class ClienteServiceImpl implements ClienteService {
     }
     mapper.map(request, cliente);
     clienteRepository.atualizarCliente(cliente);
+
   }
 
   @Override
@@ -53,16 +55,17 @@ public class ClienteServiceImpl implements ClienteService {
     return clienteRepository
       .findById(id)
       .map(cliente -> mapper.map(cliente, ClienteResponse.class))
-      .orElseThrow(() -> new RecursoJaExisteException(TipoExcecao.CLIENTE_NAO_ENCONTRADO));
+      .orElseThrow(() -> new RecursoNaoEncontradoException(TipoExcecao.CLIENTE_NAO_ENCONTRADO));
   }
 
   @Override
   public List<ClienteResponse> findAllClientes() {
-    return clienteRepository
+    List<ClienteResponse> collect = clienteRepository
       .findAll()
       .stream()
       .map(cliente -> mapper.map(cliente, ClienteResponse.class))
       .collect(Collectors.toList());
+    return collect;
   }
 
   private void validarEmail(String email) {
