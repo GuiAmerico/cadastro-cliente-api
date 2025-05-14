@@ -1,24 +1,40 @@
 version: '3.8'
 
 services:
-  mssql-server:
+  sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: mssql-server
+    container_name: sqlserver
     environment:
       - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=${DB_PASSWORD}
+      - SA_PASSWORD=${DB_PASSWORD}
     ports:
       - "1433:1433"
-    volumes:
-      - mssql-data:/var/opt/mssql
     networks:
-      - mssql-network
-    restart: always
+      - app-network
+    volumes:
+      - sqlserver_data:/var/opt/mssql
 
-volumes:
-  mssql-data:
-    driver: local
+  springboot-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: springboot-app
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:sqlserver://sqlserver:1433;databaseName=master;encrypt=false
+      - SPRING_DATASOURCE_USERNAME=sa
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+      - JWT_SECRET=${JWT_SECRET}
+    ports:
+      - "8081:8081"
+    depends_on:
+      - sqlserver
+    networks:
+      - app-network
 
 networks:
-  mssql-network:
+  app-network:
     driver: bridge
+
+volumes:
+  sqlserver_data:
+    driver: local
