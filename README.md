@@ -32,7 +32,7 @@ Este projeto é uma aplicação de cadastro de clientes desenvolvida em **Java**
 
 ## Endpoints
 
-### Base URL: `/publico/v1/autenticacao`
+### Base URL: `/api/v1/clientes`
 
 - **POST** `/`  
   Cria um novo cliente.  
